@@ -1,51 +1,24 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.16)
 
-project(HTTP-Fuzzer LANGUAGES CXX)
+project(HTTP-Fuzzer
+    DESCRIPTION "Simple HTTP Fuzzer to practice Qt framework"
+    VERSION 0.0.0
+    LANGUAGES CXX)
 
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
+find_package(ntc-cmake 1.1.0 REQUIRED)
+include(ntc-dev-build)
 
-set(CMAKE_AUTOUIC ON)
-set(CMAKE_AUTOMOC ON)
-set(CMAKE_AUTORCC ON)
+find_package(Qt5 5.13.2 COMPONENTS Widgets LinguistTools REQUIRED)
 
-set(CMAKE_CXX_STANDARD 11)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-# QtCreator supports the following variables for Android, which are identical to qmake Android variables.
-# Check http://doc.qt.io/qt-5/deployment-android.html for more information.
-# They need to be set before the find_package(Qt5 ...) call.
-
-#if(ANDROID)
-#    set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
-#    if (ANDROID_ABI STREQUAL "armeabi-v7a")
-#        set(ANDROID_EXTRA_LIBS
-#            ${CMAKE_CURRENT_SOURCE_DIR}/path/to/libcrypto.so
-#            ${CMAKE_CURRENT_SOURCE_DIR}/path/to/libssl.so)
-#    endif()
-#endif()
-
-find_package(Qt5 COMPONENTS Widgets LinguistTools REQUIRED)
-
-set(TS_FILES HTTP-Fuzzer_ru_RU.ts)
-
-if(ANDROID)
-  add_library(HTTP-Fuzzer SHARED
-    main.cpp
-    fuzzwidget.cpp
-    fuzzwidget.hpp
-    fuzzwidget.ui
-    ${TS_FILES}
+add_executable(HTTP-Fuzzer
+    src/main.cpp
+    src/fuzzwidget.cpp
+    src/fuzzwidget.hpp
+    src/fuzzwidget.ui
   )
-else()
-  add_executable(HTTP-Fuzzer
-    main.cpp
-    fuzzwidget.cpp
-    fuzzwidget.hpp
-    fuzzwidget.ui
-    ${TS_FILES}
-  )
-endif()
+
+target_compile_features(HTTP-Fuzzer PRIVATE cxx_std_20)
 
 target_link_libraries(HTTP-Fuzzer PRIVATE Qt5::Widgets)
 
-qt5_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
+ntc_target(HTTP-Fuzzer TRANSLATIONS ru)
