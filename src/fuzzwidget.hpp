@@ -15,6 +15,9 @@ public:
     FuzzWidget(QWidget *parent = nullptr);
     ~FuzzWidget();
 
+private slots:
+    void on_actionAbout_triggered();
+
 private:
     Ui::FuzzWidget *ui;
 };
