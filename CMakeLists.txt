@@ -22,3 +22,5 @@ target_compile_features(HTTP-Fuzzer PRIVATE cxx_std_20)
 target_link_libraries(HTTP-Fuzzer PRIVATE Qt5::Widgets)
 
 ntc_target(HTTP-Fuzzer TRANSLATIONS ru)
+
+add_subdirectory(examples)
