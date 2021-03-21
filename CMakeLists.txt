@@ -8,7 +8,7 @@ project(HTTP-Fuzzer
 find_package(ntc-cmake 1.1.0 REQUIRED)
 include(ntc-dev-build)
 
-find_package(Qt5 5.13.2 COMPONENTS Widgets LinguistTools REQUIRED)
+find_package(Qt5 5.15.2 COMPONENTS Widgets LinguistTools Network REQUIRED)
 
 add_executable(HTTP-Fuzzer
     src/main.cpp
