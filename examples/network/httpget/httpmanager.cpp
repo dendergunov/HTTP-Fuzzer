@@ -22,7 +22,7 @@ HttpManager::HttpManager(QObject *parent) : QObject(parent)
 void HttpManager::sendRequest()
 {
     QTextStream out(stdout);
-    QNetworkRequest request(QUrl::fromEncoded("http://neverssl.com"));
+    QNetworkRequest request(QUrl(QStringLiteral("http://neverssl.com")));
     out << "Create HTTP GET request to:" << request.url().toString() << endl;
     qnam_.get(request);
 }

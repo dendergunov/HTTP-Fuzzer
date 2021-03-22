@@ -31,14 +31,14 @@ HttpsManager::HttpsManager(QObject *parent) : QObject(parent)
 void HttpsManager::doSession()
 {
     QTextStream qout(stdout);
-    QUrl url(QUrl::fromEncoded("https://webhook.site/e9fc18fe-e381-49c1-bb11-573c606aadee"));
+    QUrl url(QUrl(QStringLiteral("https://webhook.site/e9fc18fe-e381-49c1-bb11-573c606aadee")));
     QNetworkRequest request(url);
-    request.setHeader(QNetworkRequest::ContentTypeHeader, QString::fromUtf8("text/plain"));
+    request.setHeader(QNetworkRequest::ContentTypeHeader, QStringLiteral("text/plain"));
     qout << "Test 1" << endl;
     qout << "Create HTTPS request to:" << request.url().toString() << endl;
     qnam_.post(request, "Simple POST body");
 
-    url = QUrl::fromEncoded("https://ptsv2.com/t/wwutz-1616347262/post");
+    url = QUrl(QStringLiteral("https://ptsv2.com/t/wwutz-1616347262/post"));
     request.setUrl(url);
     qout << "Test 2" << endl;
     qout << "Create HTTPS request to:" << request.url().toString() << endl;
