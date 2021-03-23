@@ -23,6 +23,7 @@ HttpsManager::HttpsManager(QObject *parent) : QObject(parent)
             qout << "Status code:" << statusCode.toInt() << endl;
             qout << "Reply body:" << endl << reply->readAll() << endl;
         }
+        reply->deleteLater();
     });
 
     doSession();

@@ -15,6 +15,7 @@ HttpManager::HttpManager(QObject *parent) : QObject(parent)
             out << "Status code:" << statusCode.toInt() << endl;
             out << "Reply body:" << endl << reply->readAll() << endl;
         }
+        reply->deleteLater();
     });
     sendRequest();
 }
