@@ -48,13 +48,13 @@ QVariant PairStringModel::data(const QModelIndex &index, int role) const
     if(index.row() >= storage_.size() || index.row() < 0)
         return QVariant();
 
-    QPair<QString, QString> pair = storage_.at(index.row());
+    const QPair<QString, QString>& pair = storage_.at(index.row());
 
     switch(role){
     case Qt::DisplayRole:
 
     case Qt::EditRole:
-        if(index.column()==0)
+        if(index.column() == 0)
             return pair.first;
         else if(index.column() == 1)
             return pair.second;
