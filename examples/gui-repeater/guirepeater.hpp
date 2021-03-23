@@ -24,6 +24,12 @@ private slots:
     void on_sendRequestButton_clicked();
     void requestFinished(QNetworkReply* reply);
 
+    void on_addRequestHeaderButon_clicked();
+
+    void on_deleteRequetHeaderButton_clicked();
+
+    void on_deleteAllRequestHeaderButton_clicked();
+
 private:
     Ui::GuiRepeater *ui;
 };

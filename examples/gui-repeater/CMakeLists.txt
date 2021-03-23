@@ -3,6 +3,10 @@ add_executable(gui-repeater
     guirepeater.cpp
     guirepeater.hpp
     guirepeater.ui
+    replyheadermodel.cpp
+    replyheadermodel.hpp
+    requestheadermodel.cpp
+    requestheadermodel.hpp
     )
 
 target_compile_features(gui-repeater PRIVATE cxx_std_20)

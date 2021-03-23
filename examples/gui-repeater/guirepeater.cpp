@@ -1,5 +1,8 @@
 #include "guirepeater.hpp"
 #include "ui_guirepeater.h"
+#include "replyheadermodel.hpp"
+#include "requestheadermodel.hpp"
+
 #include <QNetworkRequest>
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
@@ -20,6 +23,14 @@ GuiRepeater::GuiRepeater(QWidget *parent) :
                                         << QStringLiteral("GET")
                                         << QStringLiteral("POST")
                                         );
+
+    ui->replyHeadersTableView->setModel(new ReplyHeaderModel{ui->replyHeadersTableView});
+    ui->replyHeadersTableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+    ui->replyHeadersTableView->horizontalHeader()->setStretchLastSection(true);
+    ui->replyHeadersTableView->resizeRowsToContents();
+
+    ui->requestHeadersTableView->setModel(new RequestHeaderModel{ui->requestHeadersTableView});
+    ui->requestHeadersTableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
     connect(&qnam_, &QNetworkAccessManager::finished, this, &GuiRepeater::requestFinished);
 }
@@ -44,17 +55,37 @@ void GuiRepeater::requestFinished(QNetworkReply *reply)
         statusDescription(reply->attribute(QNetworkRequest::HttpReasonPhraseAttribute));
     if(!statusCode.isNull() && !statusDescription.isNull()){
         statusCodeAndDescription.prepend(statusCode.toString()).append(statusDescription.toString());
-        ui->replyStatusLabel->setText(statusCodeAndDescription);
+        ui->replyStatusCodeDescriptionLabel->setText(statusCodeAndDescription);
     }
 
-    ui->replyReadOnlyplainTextEdit->clear();
+    ReplyHeaderModel *replyHeaderModel = dynamic_cast<ReplyHeaderModel*>(ui->replyHeadersTableView->model());
 
     if(reply->error() == QNetworkReply::NoError){
-        ui->replyReadOnlyplainTextEdit->setPlainText(QString::fromUtf8(reply->readAll()));
-        QMessageBox::information(this, tr("Request info"), tr("Request has been completed!"));
+        ui->replyBodyPlainTextEdit->setPlainText(QString::fromUtf8(reply->readAll()));
+        replyHeaderModel->setReplyHeaders(reply->rawHeaderPairs());
     } else {
-        QMessageBox::information(this, tr("Request info"), tr("Request has been failed!"));
+        ui->replyBodyPlainTextEdit->clear();
+        replyHeaderModel->setReplyHeaders({});
     }
 
     reply->deleteLater();
+}
+
+void GuiRepeater::on_addRequestHeaderButon_clicked()
+{
+    ui->requestHeadersTableView->model()->insertRow(ui->requestHeadersTableView->model()->rowCount());
+}
+
+void GuiRepeater::on_deleteRequetHeaderButton_clicked()
+{
+    QModelIndexList deletionIndexes(ui->requestHeadersTableView->selectionModel()->selectedRows());
+
+    if(!deletionIndexes.isEmpty()){
+        ui->requestHeadersTableView->model()->removeRow(deletionIndexes.first().row());
+    }
+}
+
+void GuiRepeater::on_deleteAllRequestHeaderButton_clicked()
+{
+    ui->requestHeadersTableView->model()->removeRows(0, ui->requestHeadersTableView->model()->rowCount());
 }
