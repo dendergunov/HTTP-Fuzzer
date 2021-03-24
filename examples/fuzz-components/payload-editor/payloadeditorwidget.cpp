@@ -17,10 +17,16 @@ PayloadEditorWidget::PayloadEditorWidget(QWidget *parent) :
     ui->urlPayloadTableView->setModel(new PayloadModel{ui->urlPayloadTableView});
     ui->urlPayloadTableView->setItemDelegateForColumn(2, pld_);
     ui->urlPayloadTableView->setItemDelegateForColumn(0, ssid_);
+    ui->urlPayloadTableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+    ui->urlPayloadTableView->horizontalHeader()->setStretchLastSection(true);
+
 
     ui->bodyPayloadTableView->setModel(new PayloadModel{ui->bodyPayloadTableView});
     ui->bodyPayloadTableView->setItemDelegateForColumn(2, pld_);
     ui->bodyPayloadTableView->setItemDelegateForColumn(0, ssid_);
+    ui->bodyPayloadTableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+    ui->bodyPayloadTableView->horizontalHeader()->setStretchLastSection(true);
+
 }
 
 PayloadEditorWidget::~PayloadEditorWidget()
