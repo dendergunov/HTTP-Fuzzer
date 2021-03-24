@@ -20,8 +20,11 @@ GuiRepeater::GuiRepeater(QWidget *parent) :
     ui->setupUi(this);
 
     ui->requestMethodcomboBox->addItems(QStringList()
-                                        << QStringLiteral("GET")
-                                        << QStringLiteral("POST")
+                                        << QStringLiteral("GET") << QStringLiteral("POST")
+                                        << QStringLiteral("HEAD") << QStringLiteral("PUT")
+                                        << QStringLiteral("DELETE") << QStringLiteral("CONNECT")
+                                        << QStringLiteral("OPTIONS") << QStringLiteral("TRACE")
+                                        << QStringLiteral("PATCH")
                                         );
 
     ui->replyHeadersTableView->setModel(new ReplyHeaderModel{ui->replyHeadersTableView});
