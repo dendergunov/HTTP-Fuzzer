@@ -42,6 +42,8 @@ public:
     // Remove data:
     bool removeRows(int row, int count, const QModelIndex &parent = QModelIndex()) override;
 
+    bool isSubStringOverlap(const substringCoordinates& coords, int row = -1);
+
 private:
     constexpr static int columns_ = 3;
     QList<PayloadRow> storage_;

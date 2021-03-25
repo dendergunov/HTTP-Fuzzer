@@ -177,6 +177,17 @@
      </item>
     </layout>
    </item>
+   <item row="0" column="2">
+    <layout class="QVBoxLayout" name="fuzzVLayout">
+     <item>
+      <widget class="QPushButton" name="fuzzButton">
+       <property name="text">
+        <string>Start Fuzzing</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
   </layout>
  </widget>
  <resources/>

@@ -36,8 +36,6 @@ private slots:
 
     void on_addBodyPayloadButton_clicked();
 
-    void on_urlLineEdit_editingFinished();
-
 private:
     Ui::PayloadEditorWidget *ui;
 

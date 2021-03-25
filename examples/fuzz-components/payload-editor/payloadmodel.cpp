@@ -139,7 +139,7 @@ bool PayloadModel::insertRows(int row, int count, const QModelIndex &parent)
 {
     beginInsertRows(parent, row, row + count - 1);
     for(int i=0; i<count; ++i){
-        storage_.insert(row, {});
+        storage_.insert(row, {{-1,0},{}});
     }
     endInsertRows();
 
@@ -154,4 +154,20 @@ bool PayloadModel::removeRows(int row, int count, const QModelIndex &parent)
     endRemoveRows();
 
     return true;
+}
+
+bool PayloadModel::isSubStringOverlap(const substringCoordinates& coords, int row)
+{
+    int insertStart = coords.first,
+        insertEnd = insertStart + coords.second - 1;
+
+    for(int i=0; i<storage_.size(); ++i){
+        substringCoordinates stored(storage_.at(i).startLength);
+        if(i!=row && ((insertStart <= (stored.first + stored.second - 1)
+                          && insertEnd >= (stored.first + stored.second - 1))
+                         || (stored.first <=  insertEnd
+                             && (stored.first + stored.second - 1) >= insertEnd)))
+            return true;
+    }
+    return false;
 }
