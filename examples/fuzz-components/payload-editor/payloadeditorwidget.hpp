@@ -39,6 +39,8 @@ private slots:
 private:
     Ui::PayloadEditorWidget *ui;
 
+    bool isFuzzRunning_ = false;
+
     using start = int;
     using length = int;
     QPair<start, length> urlLastSelectionIndexes,

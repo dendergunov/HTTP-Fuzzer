@@ -12,7 +12,9 @@ add_executable(payload-editor
     substringindexesinputdialog.cpp
     substringindexesinputdialog.hpp
     substringindexesinputdialog.ui
-    customtypes.hpp)
+    customtypes.hpp
+    fuzzmanager.cpp
+    fuzzmanager.hpp)
 
 
 target_compile_features(payload-editor PRIVATE cxx_std_20)
