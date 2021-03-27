@@ -46,4 +46,8 @@ target_link_libraries(HTTP-Fuzzer PRIVATE
 
 ntc_target(HTTP-Fuzzer)
 
-add_subdirectory(examples)
+option(FUZZ_BUILD_EXAMPLES "Build examples of components used in the project" OFF)
+
+if(FUZZ_BUILD_EXAMPLES)
+    add_subdirectory(examples)
+endif()
